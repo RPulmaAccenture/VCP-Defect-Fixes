@@ -1,0 +1,56 @@
+1. Command to Upload packages.
+
+
+
+Move the XXNBTY_MSC_EXT03_SPREAD_EXT_PKG.pkb to /u01/oracle/apps/apps_st/appl/xxnbty/12.0.0/admin/sql and execute the command.
+NOTE: You may use apps user and apps password. 
+
+
+
+sqlplus -s USERNAME/PASSWORD
+
+@/u01/oracle/apps/apps_st/appl/xxnbty/12.0.0/admin/sql/XXNBTY_MSC_EXT03_SPREAD_EXT_PKG.pkb 
+
+
+
+
+2. Command to Upload sql files.
+
+
+
+Move the ALTER_TABLE_xxnbty_msc_safety_stocks_st.sql to /u01/oracle/apps/apps_st/appl/xxnbty/12.0.0/admin/sql and execute the command.
+NOTE: You may use apps user and apps password. 
+
+
+
+sqlplus -s USERNAME/PASSWORD
+
+@/u01/oracle/apps/apps_st/appl/xxnbty/12.0.0/admin/sql/ALTER_TABLE_xxnbty_msc_safety_stocks_st.sql
+
+
+
+
+3. Command to Upload indexes.
+
+
+
+Move the xxnbty_msc_denorms_deleted_U1.sql to /u01/oracle/apps/apps_st/appl/xxnbty/12.0.0/admin/sql and execute the command.
+NOTE: You may use apps user and apps password. 
+
+
+
+sqlplus -s USERNAME/PASSWORD
+
+@/u01/oracle/apps/apps_st/appl/xxnbty/12.0.0/admin/sql/xxnbty_msc_denorms_deleted_U1.sql
+
+
+
+
+4. Command to upload FND FILES
+NOTE: Please make sure to update the password. thanks!
+
+Move the LDT files to /u01/oracle/apps/apps_st/appl/xxnbty/12.0.0/admin/import and execute the command.
+
+--Upload Command
+
+FNDLOAD apps/PASSWORD 0 Y UPLOAD $FND_TOP/patch/115/import/afcpprog.lct XXNBTY_EXT03_CP.ldt CUSTOM_MODE=FORCE
