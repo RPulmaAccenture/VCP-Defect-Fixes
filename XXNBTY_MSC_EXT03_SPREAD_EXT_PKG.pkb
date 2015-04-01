@@ -19,6 +19,7 @@ AS
   3-Mar-2015		  Erwin Ramos			Changed the SQLERRM to 2
   6-Mar-2015		  Erwin Ramos			Update the apps.xxnbty_msc_denorms_deleted to xxnbty_msc_denorms_deleted.
   24-Mar-2015	141	  Erwin Ramos			Added cursor c_del_denorms, INDEX and created INDEX to resolve defect 141.
+  31-Mar-2015   143   Daniel Rodil			Modified to remove the criteria on the deletion on xxnbty_msc_denorms_deleted, as discussed with Ankit T.
   */
   --------------------------------------------------------------------------------------------
 
@@ -126,12 +127,17 @@ BEGIN
   l_step := 1;
   --delete backup but remain at least two months backup
   DELETE
-    FROM xxnbty_msc_denorms_deleted
+    FROM xxnbty_msc_denorms_deleted;
+  FND_CONCURRENT.AF_COMMIT;
+  
+  /* 31-Mar-2015 drodil defect 143
    WHERE start_time < (SELECT ADD_MONTHS(MAX(start_time),-1)      --get latest month exported but not greater than SYSDATE minus 1 month
                          FROM msd.msd_dp_scn_entries_denorm
                         WHERE bucket_type = c_bucket_type --Monthly/weekly bucket type
                           AND scenario_id = c_base_forecast       --Base Forecast
-                          AND TRUNC(start_time) <= TRUNC(SYSDATE));
+                          AND TRUNC(start_time) <= TRUNC(SYSDATE));  
+  */
+  
   l_step := 2;
   --get maximum demand id
   SELECT NVL(MAX(demand_id),0)
@@ -219,6 +225,8 @@ BEGIN
                     AND b.sr_instance_id = a.sr_instance_id
                     AND b.sr_organization_id = a.sr_organization_id
                     AND b.sr_inventory_item_id = a.sr_inventory_item_id);  
+  
+  FND_CONCURRENT.AF_COMMIT;
   
   --delete all monthly forecast that have been converted
   /*
