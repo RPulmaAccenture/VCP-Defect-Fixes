@@ -1,0 +1,1529 @@
+# $Header$
+
+# dbdrv: exec fnd bin FNDLOAD bin &phase=daa+64 checkfile:~PROD:~PATH:~FILE &ui_apps 0 Y UPLOAD @FND:patch/115/import/afcprset.lct @~PROD:~PATH/~FILE
+LANGUAGE = "US"
+LDRCONFIG = "afcprset.lct 120.2.12010000.1"
+
+#Source Database NBTYPG01
+
+#RELEASE_NAME 12.1.3
+
+# -- Begin Entity Definitions -- 
+
+DEFINE REQ_SET
+  KEY   APPLICATION_SHORT_NAME          VARCHAR2(50)
+  KEY   REQUEST_SET_NAME                VARCHAR2(30)
+  CTX   OWNER                           VARCHAR2(4000)
+  BASE  ALLOW_CONSTRAINTS_FLAG          VARCHAR2(1)
+  BASE  PRINT_TOGETHER_FLAG             VARCHAR2(1)
+  BASE  START_DATE_ACTIVE               VARCHAR2(11)
+  BASE  START_STAGE_NAME                VARCHAR2(30)
+  BASE  END_DATE_ACTIVE                 VARCHAR2(11)
+  BASE  CONCURRENT_PROGRAM_NAME         VARCHAR2(30)
+  BASE  OWNER_USER_NAME                 VARCHAR2(100)
+  BASE  PRINTER                         VARCHAR2(30)
+  BASE  PRINT_STYLE                     VARCHAR2(30)
+  TRANS USER_REQUEST_SET_NAME           VARCHAR2(240)
+  TRANS DESCRIPTION                     VARCHAR2(240)
+  BASE  LAST_UPDATE_DATE                VARCHAR2(10)
+
+  DEFINE STAGE
+    KEY   STAGE_NAME                      VARCHAR2(30)
+    CTX   OWNER                           VARCHAR2(4000)
+    BASE  CRITICAL                        VARCHAR2(1)
+    BASE  OUTCOME                         VARCHAR2(1)
+    BASE  ALLOW_CONSTRAINTS_FLAG          VARCHAR2(1)
+    BASE  DISPLAY_SEQUENCE                VARCHAR2(50)
+    BASE  FUNCTION_APPLICATION            VARCHAR2(50)
+    BASE  FUNCTION                        VARCHAR2(30)
+    BASE  SUCCESS_LINK                    VARCHAR2(30)
+    BASE  WARNING_LINK                    VARCHAR2(30)
+    BASE  ERROR_LINK                      VARCHAR2(30)
+    BASE  CONCURRENT_PROGRAM_NAME         VARCHAR2(30)
+    TRANS USER_STAGE_NAME                 VARCHAR2(240)
+    TRANS DESCRIPTION                     VARCHAR2(240)
+    BASE  LAST_UPDATE_DATE                VARCHAR2(10)
+
+    DEFINE STAGE_PROG
+      KEY   SEQUENCE                        VARCHAR2(50)
+      CTX   OWNER                           VARCHAR2(4000)
+      BASE  PROGRAM_APPLICATION             VARCHAR2(50)
+      BASE  PROGRAM_NAME                    VARCHAR2(30)
+      BASE  NLS_LANGUAGE                    VARCHAR2(30)
+      BASE  NLS_TERRITORY                   VARCHAR2(30)
+      BASE  CRITICAL                        VARCHAR2(1)
+      BASE  NUMBER_OF_COPIES                VARCHAR2(50)
+      BASE  PRINTER                         VARCHAR2(30)
+      BASE  PRINT_STYLE                     VARCHAR2(30)
+      BASE  SAVE_OUTPUT_FLAG                VARCHAR2(1)
+      BASE  LAST_UPDATE_DATE                VARCHAR2(10)
+
+      DEFINE PROG_ARGS
+        KEY   DESC_FLEX_APPL                  VARCHAR2(50)
+        KEY   DESC_FLEX_NAME                  VARCHAR2(50)
+        KEY   COL_NAME                        VARCHAR2(30)
+        CTX   OWNER                           VARCHAR2(4000)
+        BASE  DISPLAY_FLAG                    VARCHAR2(1)
+        BASE  INSERT_FLAG                     VARCHAR2(1)
+        BASE  UPDATE_FLAG                     VARCHAR2(1)
+        BASE  DEFAULT_TYPE                    VARCHAR2(1)
+        BASE  DEFAULT_VALUE                   VARCHAR2(2000)
+        BASE  SHARED_PARAMETER_NAME           VARCHAR2(30)
+        BASE  LAST_UPDATE_DATE                VARCHAR2(10)
+      END PROG_ARGS
+    END STAGE_PROG
+  END STAGE
+END REQ_SET
+
+# -- End Entity Definitions -- 
+
+
+BEGIN REQ_SET "MSC" "DAILY PLANNING REQUEST SET"
+  OWNER = "RANDYL.PULMA"
+  ALLOW_CONSTRAINTS_FLAG = "N"
+  PRINT_TOGETHER_FLAG = "Y"
+  START_DATE_ACTIVE = "2014/11/15"
+  START_STAGE_NAME = "Stage5"
+  USER_REQUEST_SET_NAME = "XXNBTY Daily Planning Request Set - MRP"
+  DESCRIPTION = "NBTY Daily Planning Request Set - MRP"
+  LAST_UPDATE_DATE = "2015/02/24"
+
+  BEGIN STAGE "Stage20"
+    OWNER = "ORACLE12.1.3"
+    CRITICAL = "N"
+    OUTCOME = "C"
+    ALLOW_CONSTRAINTS_FLAG = "N"
+    DISPLAY_SEQUENCE = "20"
+    FUNCTION_APPLICATION = "FND"
+    FUNCTION = "FNDRSSTE"
+    SUCCESS_LINK = "Stage25"
+    WARNING_LINK = "Stage25"
+    USER_STAGE_NAME = "Planning Data Pull"
+    DESCRIPTION = "Planning Data Pull"
+    LAST_UPDATE_DATE = "2015/03/04"
+  
+    BEGIN STAGE_PROG "10"
+      OWNER = "ORACLE12.1.3"
+      PROGRAM_APPLICATION = "MSC"
+      PROGRAM_NAME = "MSCPDP"
+      CRITICAL = "Y"
+      NUMBER_OF_COPIES = "0"
+      SAVE_OUTPUT_FLAG = "Y"
+      LAST_UPDATE_DATE = "2015/03/04"
+    
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCPDP" "ATTRIBUTE56"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        DEFAULT_TYPE = "S"
+        DEFAULT_VALUE =
+ "select meaning from mfg_lookups where lookup_type = 'SYS_YES_NO' and lookup_code = 2"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCPDP" "ATTRIBUTE57"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        DEFAULT_TYPE = "S"
+        DEFAULT_VALUE =
+ "select meaning from mfg_lookups where lookup_type = 'SYS_YES_NO' and lookup_code = 2"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCPDP" "ATTRIBUTE58"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        DEFAULT_TYPE = "D"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCPDP" "ATTRIBUTE59"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        DEFAULT_TYPE = "D"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCPDP" "ATTRIBUTE60"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        DEFAULT_TYPE = "S"
+        DEFAULT_VALUE =
+ "select meaning from mfg_lookups where lookup_type = 'SYS_YES_NO' and lookup_code = 2"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCPDP" "ATTRIBUTE61"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        DEFAULT_TYPE = "S"
+        DEFAULT_VALUE =
+ "select meaning from mfg_lookups where lookup_type = 'SYS_YES_NO' and lookup_code = 2"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCPDP" "ATTRIBUTE40"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "All"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCPDP" "ATTRIBUTE1"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "EBS"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCPDP" "ATTRIBUTE7"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "No"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCPDP" "ATTRIBUTE8"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "Yes, replace all values"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCPDP" "ATTRIBUTE9"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "No"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCPDP" "ATTRIBUTE10"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "Yes"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCPDP" "ATTRIBUTE11"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "Yes"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCPDP" "ATTRIBUTE12"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "Yes"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCPDP" "ATTRIBUTE13"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "No"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCPDP" "ATTRIBUTE37"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "No"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCPDP" "ATTRIBUTE14"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "Yes"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCPDP" "ATTRIBUTE15"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "Yes"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCPDP" "ATTRIBUTE16"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "No"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCPDP" "ATTRIBUTE17"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "No"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCPDP" "ATTRIBUTE23"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "No"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCPDP" "ATTRIBUTE18"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "No"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCPDP" "ATTRIBUTE20"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "Yes"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCPDP" "ATTRIBUTE21"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "Yes"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCPDP" "ATTRIBUTE42"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "Yes"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCPDP" "ATTRIBUTE24"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "No"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCPDP" "ATTRIBUTE3"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "Yes"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCPDP" "ATTRIBUTE22"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "No"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCPDP" "ATTRIBUTE25"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "Regenerate and Collect Data"
+        LAST_UPDATE_DATE = "2015/04/01"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCPDP" "ATTRIBUTE26"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "No"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCPDP" "ATTRIBUTE27"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "Yes"
+        LAST_UPDATE_DATE = "2015/01/21"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCPDP" "ATTRIBUTE28"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "No"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCPDP" "ATTRIBUTE29"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "Yes"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCPDP" "ATTRIBUTE30"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "Yes"
+        LAST_UPDATE_DATE = "2015/01/19"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCPDP" "ATTRIBUTE39"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "No"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCPDP" "ATTRIBUTE31"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "Yes"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCPDP" "ATTRIBUTE41"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "Yes"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCPDP" "ATTRIBUTE33"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "Yes"
+        LAST_UPDATE_DATE = "2015/01/21"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCPDP" "ATTRIBUTE34"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "Yes"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCPDP" "ATTRIBUTE38"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "No"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCPDP" "ATTRIBUTE35"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "Yes"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCPDP" "ATTRIBUTE36"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "Yes"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCPDP" "ATTRIBUTE43"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "No"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCPDP" "ATTRIBUTE44"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "No"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCPDP" "ATTRIBUTE45"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "No"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCPDP" "ATTRIBUTE46"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "No"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCPDP" "ATTRIBUTE47"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "No"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCPDP" "ATTRIBUTE48"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "No"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCPDP" "ATTRIBUTE49"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "No"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCPDP" "ATTRIBUTE50"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "No"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCPDP" "ATTRIBUTE51"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "No"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCPDP" "ATTRIBUTE52"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "No"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCPDP" "ATTRIBUTE53"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        DEFAULT_TYPE = "S"
+        DEFAULT_VALUE =
+ "select meaning from mfg_lookups where lookup_type = 'SYS_YES_NO' and lookup_code = 2"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCPDP" "ATTRIBUTE54"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        DEFAULT_TYPE = "D"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCPDP" "ATTRIBUTE55"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        DEFAULT_TYPE = "D"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCPDP" "ATTRIBUTE5"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "Yes"
+        LAST_UPDATE_DATE = "2014/12/08"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCPDP" "ATTRIBUTE6"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "Complete Refresh"
+        LAST_UPDATE_DATE = "2014/12/08"
+      END PROG_ARGS
+      
+    END STAGE_PROG
+    
+  END STAGE
+  
+  BEGIN STAGE "Stage40"
+    OWNER = "ORACLE12.1.3"
+    CRITICAL = "N"
+    OUTCOME = "C"
+    ALLOW_CONSTRAINTS_FLAG = "N"
+    DISPLAY_SEQUENCE = "40"
+    FUNCTION_APPLICATION = "FND"
+    FUNCTION = "FNDRSSTE"
+    SUCCESS_LINK = "Stage50"
+    WARNING_LINK = "Stage50"
+    USER_STAGE_NAME = "XXNBTY Onhand Transformation"
+    DESCRIPTION = "XXNBTY Onhand Transformation"
+    LAST_UPDATE_DATE = "2015/03/04"
+  
+    BEGIN STAGE_PROG "10"
+      OWNER = "ORACLE12.1.3"
+      PROGRAM_APPLICATION = "XXNBTY"
+      PROGRAM_NAME = "XXNBTY_MSC_ON_HAND_SUPPLIES"
+      CRITICAL = "Y"
+      NUMBER_OF_COPIES = "0"
+      SAVE_OUTPUT_FLAG = "Y"
+      LAST_UPDATE_DATE = "2015/03/04"
+    
+    END STAGE_PROG
+    
+  END STAGE
+  
+  BEGIN STAGE "Stage50"
+    OWNER = "ORACLE12.1.3"
+    CRITICAL = "N"
+    OUTCOME = "C"
+    ALLOW_CONSTRAINTS_FLAG = "N"
+    DISPLAY_SEQUENCE = "50"
+    FUNCTION_APPLICATION = "FND"
+    FUNCTION = "FNDRSSTE"
+    SUCCESS_LINK = "Stage60"
+    WARNING_LINK = "Stage60"
+    USER_STAGE_NAME = "XXNBTY InTransit Transformation"
+    DESCRIPTION = "XXNBTY InTransit Transformation"
+    LAST_UPDATE_DATE = "2015/03/04"
+  
+    BEGIN STAGE_PROG "10"
+      OWNER = "ORACLE12.1.3"
+      PROGRAM_APPLICATION = "XXNBTY"
+      PROGRAM_NAME = "XXNBTY_MSC_IN_TRANSIT_SUPPLIES"
+      CRITICAL = "Y"
+      NUMBER_OF_COPIES = "0"
+      SAVE_OUTPUT_FLAG = "Y"
+      LAST_UPDATE_DATE = "2015/03/04"
+    
+    END STAGE_PROG
+    
+  END STAGE
+  
+  BEGIN STAGE "Stage60"
+    OWNER = "ORACLE12.1.3"
+    CRITICAL = "N"
+    OUTCOME = "C"
+    ALLOW_CONSTRAINTS_FLAG = "N"
+    DISPLAY_SEQUENCE = "60"
+    FUNCTION_APPLICATION = "FND"
+    FUNCTION = "FNDRSSTE"
+    SUCCESS_LINK = "Stage70"
+    WARNING_LINK = "Stage70"
+    USER_STAGE_NAME = "XXNBTY Supplies WO Transformation"
+    DESCRIPTION = "XXNBTY Supplies WO Transformation"
+    LAST_UPDATE_DATE = "2015/03/04"
+  
+    BEGIN STAGE_PROG "10"
+      OWNER = "ORACLE12.1.3"
+      PROGRAM_APPLICATION = "XXNBTY"
+      PROGRAM_NAME = "XXNBTY_MSC_WORK_ORDER_SUPPLIES"
+      CRITICAL = "Y"
+      NUMBER_OF_COPIES = "0"
+      SAVE_OUTPUT_FLAG = "Y"
+      LAST_UPDATE_DATE = "2015/03/04"
+    
+    END STAGE_PROG
+    
+  END STAGE
+  
+  BEGIN STAGE "Stage70"
+    OWNER = "ORACLE12.1.3"
+    CRITICAL = "N"
+    OUTCOME = "C"
+    ALLOW_CONSTRAINTS_FLAG = "N"
+    DISPLAY_SEQUENCE = "70"
+    FUNCTION_APPLICATION = "FND"
+    FUNCTION = "FNDRSSTE"
+    SUCCESS_LINK = "Stage 80"
+    WARNING_LINK = "Stage 80"
+    USER_STAGE_NAME = "XXNBTY WIP Demands Transformation"
+    DESCRIPTION = "XXNBTY WIP Demands Transformation"
+    LAST_UPDATE_DATE = "2015/03/04"
+  
+    BEGIN STAGE_PROG "10"
+      OWNER = "ORACLE12.1.3"
+      PROGRAM_APPLICATION = "XXNBTY"
+      PROGRAM_NAME = "XXNBTY_MSC_WIP_COMP_DEMAND"
+      CRITICAL = "Y"
+      NUMBER_OF_COPIES = "0"
+      SAVE_OUTPUT_FLAG = "Y"
+      LAST_UPDATE_DATE = "2015/03/04"
+    
+    END STAGE_PROG
+    
+  END STAGE
+  
+  BEGIN STAGE "Stage 80"
+    OWNER = "ORACLE12.1.3"
+    CRITICAL = "N"
+    OUTCOME = "C"
+    ALLOW_CONSTRAINTS_FLAG = "N"
+    DISPLAY_SEQUENCE = "80"
+    FUNCTION_APPLICATION = "FND"
+    FUNCTION = "FNDRSSTE"
+    SUCCESS_LINK = "Stage90"
+    WARNING_LINK = "Stage90"
+    USER_STAGE_NAME = "XXNBTY Sales Orders Transformation"
+    DESCRIPTION = "XXNBTY Sales Orders Transformation"
+    LAST_UPDATE_DATE = "2015/03/04"
+  
+    BEGIN STAGE_PROG "10"
+      OWNER = "ORACLE12.1.3"
+      PROGRAM_APPLICATION = "XXNBTY"
+      PROGRAM_NAME = "XXNBTY_MSC_SALES_ORDER"
+      CRITICAL = "Y"
+      NUMBER_OF_COPIES = "0"
+      SAVE_OUTPUT_FLAG = "Y"
+      LAST_UPDATE_DATE = "2015/03/04"
+    
+    END STAGE_PROG
+    
+  END STAGE
+  
+  BEGIN STAGE "Stage90"
+    OWNER = "ORACLE12.1.3"
+    CRITICAL = "N"
+    OUTCOME = "C"
+    ALLOW_CONSTRAINTS_FLAG = "N"
+    DISPLAY_SEQUENCE = "90"
+    FUNCTION_APPLICATION = "FND"
+    FUNCTION = "FNDRSSTE"
+    SUCCESS_LINK = "Stage100"
+    WARNING_LINK = "Stage100"
+    USER_STAGE_NAME = "Load Legacy Transaction Data"
+    DESCRIPTION = "Load Legacy Transaction Data"
+    LAST_UPDATE_DATE = "2015/03/04"
+  
+    BEGIN STAGE_PROG "10"
+      OWNER = "ORACLE12.1.3"
+      PROGRAM_APPLICATION = "MSC"
+      PROGRAM_NAME = "MSCELDM"
+      CRITICAL = "Y"
+      NUMBER_OF_COPIES = "0"
+      SAVE_OUTPUT_FLAG = "Y"
+      LAST_UPDATE_DATE = "2015/03/04"
+    
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCELDM" "ATTRIBUTE3"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "Y"
+        UPDATE_FLAG = "Y"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE =
+ "/u01/oracle/apps/apps_st/appl/msc/12.0.0/patch/115/import"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCELDM" "ATTRIBUTE4"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "Y"
+        UPDATE_FLAG = "Y"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "/home/nbtydata/dataupload"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCELDM" "ATTRIBUTE5"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "Y"
+        UPDATE_FLAG = "Y"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "8"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCELDM" "ATTRIBUTE30"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "N"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCELDM" "ATTRIBUTE32"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "N"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCELDM" "ATTRIBUTE33"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "N"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCELDM" "ATTRIBUTE41"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "Y"
+        UPDATE_FLAG = "Y"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "MSC_ST_SUPPLIES_WO.dat"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCELDM" "ATTRIBUTE43"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "Y"
+        UPDATE_FLAG = "Y"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "MSC_ST_SUPPLIES_ONHAND.dat"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCELDM" "ATTRIBUTE44"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "Y"
+        UPDATE_FLAG = "Y"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "MSC_ST_SUPPLIES_INTRANSIT.dat"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCELDM" "ATTRIBUTE49"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "Y"
+        UPDATE_FLAG = "Y"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "MSC_ST_SALES_ORDERS.dat"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCELDM" "ATTRIBUTE54"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "Y"
+        UPDATE_FLAG = "Y"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "MSC_ST_DEMANDS_WORK_ORDER.dat"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCELDM" "ATTRIBUTE45"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "N"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCELDM" "ATTRIBUTE46"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "N"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCELDM" "ATTRIBUTE47"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "N"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCELDM" "ATTRIBUTE48"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "N"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCELDM" "ATTRIBUTE50"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "N"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCELDM" "ATTRIBUTE51"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "N"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCELDM" "ATTRIBUTE52"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "N"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCELDM" "ATTRIBUTE53"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "N"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCELDM" "ATTRIBUTE64"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "N"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCELDM" "ATTRIBUTE42"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "N"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+    END STAGE_PROG
+    
+  END STAGE
+  
+  BEGIN STAGE "Stage100"
+    OWNER = "ORACLE12.1.3"
+    CRITICAL = "N"
+    OUTCOME = "C"
+    ALLOW_CONSTRAINTS_FLAG = "N"
+    DISPLAY_SEQUENCE = "100"
+    FUNCTION_APPLICATION = "FND"
+    FUNCTION = "FNDRSSTE"
+    SUCCESS_LINK = "Stage110"
+    WARNING_LINK = "Stage110"
+    USER_STAGE_NAME = "Pre-Process Transaction Data"
+    DESCRIPTION = "Pre-Process Transaction Data"
+    LAST_UPDATE_DATE = "2015/03/04"
+  
+    BEGIN STAGE_PROG "10"
+      OWNER = "ORACLE12.1.3"
+      PROGRAM_APPLICATION = "MSC"
+      PROGRAM_NAME = "MSCEPPM"
+      CRITICAL = "Y"
+      NUMBER_OF_COPIES = "0"
+      SAVE_OUTPUT_FLAG = "Y"
+      LAST_UPDATE_DATE = "2015/03/04"
+    
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCEPPM" "ATTRIBUTE1"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "Y"
+        UPDATE_FLAG = "Y"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "EBS"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCEPPM" "ATTRIBUTE4"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "Y"
+        UPDATE_FLAG = "Y"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "8"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCEPPM" "ATTRIBUTE2"
+        OWNER = "ERWIN.RAMOS"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "Y"
+        UPDATE_FLAG = "Y"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "600"
+        LAST_UPDATE_DATE = "2015/01/27"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCEPPM" "ATTRIBUTE3"
+        OWNER = "ERWIN.RAMOS"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "Y"
+        UPDATE_FLAG = "Y"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "100000"
+        LAST_UPDATE_DATE = "2015/01/27"
+      END PROG_ARGS
+      
+    END STAGE_PROG
+    
+  END STAGE
+  
+  BEGIN STAGE "Stage110"
+    OWNER = "ORACLE12.1.3"
+    CRITICAL = "N"
+    OUTCOME = "C"
+    ALLOW_CONSTRAINTS_FLAG = "N"
+    DISPLAY_SEQUENCE = "110"
+    FUNCTION_APPLICATION = "FND"
+    FUNCTION = "FNDRSSTE"
+    SUCCESS_LINK = "Stage130"
+    WARNING_LINK = "Stage130"
+    USER_STAGE_NAME = "Planning ODS Load - Planning Table"
+    DESCRIPTION = "Planning ODS Load - Planning Table"
+    LAST_UPDATE_DATE = "2015/03/04"
+  
+    BEGIN STAGE_PROG "10"
+      OWNER = "ORACLE12.1.3"
+      PROGRAM_APPLICATION = "MSC"
+      PROGRAM_NAME = "MSCPDC"
+      CRITICAL = "Y"
+      NUMBER_OF_COPIES = "0"
+      SAVE_OUTPUT_FLAG = "Y"
+      LAST_UPDATE_DATE = "2015/03/04"
+    
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCPDC" "ATTRIBUTE1"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "Y"
+        UPDATE_FLAG = "Y"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "EBS"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCPDC" "ATTRIBUTE3"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "Y"
+        UPDATE_FLAG = "Y"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "8"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCPDC" "ATTRIBUTE2"
+        OWNER = "ERWIN.RAMOS"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "Y"
+        UPDATE_FLAG = "Y"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "180"
+        LAST_UPDATE_DATE = "2015/01/27"
+      END PROG_ARGS
+      
+    END STAGE_PROG
+    
+  END STAGE
+  
+  BEGIN STAGE "Stage130"
+    OWNER = "ORACLE12.1.3"
+    CRITICAL = "N"
+    OUTCOME = "C"
+    ALLOW_CONSTRAINTS_FLAG = "N"
+    DISPLAY_SEQUENCE = "130"
+    FUNCTION_APPLICATION = "FND"
+    FUNCTION = "FNDRSSTE"
+    SUCCESS_LINK = "STAGE140"
+    WARNING_LINK = "STAGE140"
+    USER_STAGE_NAME = "Launch Supply Chain Planning Process"
+    DESCRIPTION = "Launch Supply Chain Planning Process"
+    LAST_UPDATE_DATE = "2015/03/04"
+  
+    BEGIN STAGE_PROG "10"
+      OWNER = "ORACLE12.1.3"
+      PROGRAM_APPLICATION = "MSC"
+      PROGRAM_NAME = "MSCSLPPR5"
+      CRITICAL = "Y"
+      NUMBER_OF_COPIES = "0"
+      SAVE_OUTPUT_FLAG = "Y"
+      LAST_UPDATE_DATE = "2015/03/04"
+    
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCSLPPR5" "ATTRIBUTE3"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "Y"
+        UPDATE_FLAG = "Y"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "Yes"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCSLPPR5" "ATTRIBUTE14"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "Y"
+        UPDATE_FLAG = "Y"
+        DEFAULT_TYPE = "S"
+        DEFAULT_VALUE =
+ "select meaning from mfg_lookups where lookup_type = 'SYS_YES_NO' and lookup_code = 1"
+        LAST_UPDATE_DATE = "2015/03/03"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCSLPPR5" "ATTRIBUTE10"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "Y"
+        UPDATE_FLAG = "Y"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "No"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCSLPPR5" "ATTRIBUTE12"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "Y"
+        UPDATE_FLAG = "Y"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "Yes"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCSLPPR5" "ATTRIBUTE16"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "NBTYMRP_D"
+        LAST_UPDATE_DATE = "2015/01/19"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCSLPPR5" "ATTRIBUTE18"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "Y"
+        UPDATE_FLAG = "Y"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "No"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCSLPPR5" "ATTRIBUTE13"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "NBTYMRP_D"
+        LAST_UPDATE_DATE = "2015/01/19"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCSLPPR5" "ATTRIBUTE2"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "Y"
+        UPDATE_FLAG = "Y"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "Full Snapshot"
+        LAST_UPDATE_DATE = "2014/11/15"
+      END PROG_ARGS
+      
+    END STAGE_PROG
+    
+    BEGIN STAGE_PROG "20"
+      OWNER = "SANJAY.SINHA"
+      PROGRAM_APPLICATION = "XXNBTY"
+      PROGRAM_NAME = "XXNBTY_MSC_GET_CATALOG_RECORDS"
+      CRITICAL = "Y"
+      NUMBER_OF_COPIES = "0"
+      SAVE_OUTPUT_FLAG = "Y"
+      LAST_UPDATE_DATE = "2015/03/31"
+    
+    END STAGE_PROG
+    
+  END STAGE
+  
+  BEGIN STAGE "Stage5"
+    OWNER = "ORACLE12.1.3"
+    CRITICAL = "N"
+    OUTCOME = "C"
+    ALLOW_CONSTRAINTS_FLAG = "N"
+    DISPLAY_SEQUENCE = "5"
+    FUNCTION_APPLICATION = "FND"
+    FUNCTION = "FNDRSSTE"
+    SUCCESS_LINK = "Stage15"
+    WARNING_LINK = "Stage15"
+    USER_STAGE_NAME = "Purge Staging Table"
+    DESCRIPTION = "Purge Staging Table"
+    LAST_UPDATE_DATE = "2015/03/04"
+  
+    BEGIN STAGE_PROG "10"
+      OWNER = "ORACLE12.1.3"
+      PROGRAM_APPLICATION = "MSC"
+      PROGRAM_NAME = "MSCPDCP"
+      CRITICAL = "Y"
+      NUMBER_OF_COPIES = "0"
+      SAVE_OUTPUT_FLAG = "N"
+      LAST_UPDATE_DATE = "2015/03/04"
+    
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCPDCP" "ATTRIBUTE1"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "EBS"
+        LAST_UPDATE_DATE = "2014/11/18"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCPDCP" "ATTRIBUTE2"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "N"
+        UPDATE_FLAG = "N"
+        DEFAULT_TYPE = "S"
+        DEFAULT_VALUE =
+ "select meaning from mfg_lookups where lookup_type = 'SYS_YES_NO' and lookup_code = 2"
+        LAST_UPDATE_DATE = "2014/11/18"
+      END PROG_ARGS
+      
+    END STAGE_PROG
+    
+  END STAGE
+  
+  BEGIN STAGE "Stage35"
+    OWNER = "ORACLE12.1.3"
+    CRITICAL = "N"
+    OUTCOME = "C"
+    ALLOW_CONSTRAINTS_FLAG = "N"
+    DISPLAY_SEQUENCE = "35"
+    FUNCTION_APPLICATION = "FND"
+    FUNCTION = "FNDRSSTE"
+    SUCCESS_LINK = "STAGE 35"
+    WARNING_LINK = "STAGE 35"
+    USER_STAGE_NAME = "Planning ODS Load"
+    DESCRIPTION = "Planning ODS Load"
+    LAST_UPDATE_DATE = "2015/03/04"
+  
+    BEGIN STAGE_PROG "10"
+      OWNER = "ORACLE12.1.3"
+      PROGRAM_APPLICATION = "MSC"
+      PROGRAM_NAME = "MSCPDC"
+      CRITICAL = "Y"
+      NUMBER_OF_COPIES = "0"
+      SAVE_OUTPUT_FLAG = "Y"
+      LAST_UPDATE_DATE = "2015/03/04"
+    
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCPDC" "ATTRIBUTE1"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "Y"
+        UPDATE_FLAG = "Y"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "EBS"
+        LAST_UPDATE_DATE = "2014/11/18"
+      END PROG_ARGS
+      
+      BEGIN PROG_ARGS "MSC" "$SRS$.MSCPDC" "ATTRIBUTE3"
+        OWNER = "SANJAY.SINHA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "Y"
+        UPDATE_FLAG = "Y"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "8"
+        LAST_UPDATE_DATE = "2014/11/18"
+      END PROG_ARGS
+      
+    END STAGE_PROG
+    
+  END STAGE
+  
+  BEGIN STAGE "Stage 32"
+    OWNER = "ORACLE12.1.3"
+    CRITICAL = "N"
+    OUTCOME = "C"
+    ALLOW_CONSTRAINTS_FLAG = "N"
+    DISPLAY_SEQUENCE = "37"
+    FUNCTION_APPLICATION = "FND"
+    FUNCTION = "FNDRSSTE"
+    SUCCESS_LINK = "Stage40"
+    WARNING_LINK = "Stage40"
+    USER_STAGE_NAME = "XXNBTY Customer Extension for Demantra Program"
+    DESCRIPTION = "XXNBTY Customer Extension for Demantra Program"
+    LAST_UPDATE_DATE = "2015/03/04"
+  
+    BEGIN STAGE_PROG "10"
+      OWNER = "ORACLE12.1.3"
+      PROGRAM_APPLICATION = "XXNBTY"
+      PROGRAM_NAME = "XXNBTY_MSC_CUSTOMER_EXT"
+      CRITICAL = "Y"
+      NUMBER_OF_COPIES = "0"
+      SAVE_OUTPUT_FLAG = "Y"
+      LAST_UPDATE_DATE = "2015/03/04"
+    
+    END STAGE_PROG
+    
+  END STAGE
+  
+  BEGIN STAGE "STAGE140"
+    OWNER = "ORACLE12.1.3"
+    CRITICAL = "N"
+    OUTCOME = "C"
+    ALLOW_CONSTRAINTS_FLAG = "N"
+    DISPLAY_SEQUENCE = "140"
+    FUNCTION_APPLICATION = "FND"
+    FUNCTION = "FNDRSSTE"
+    USER_STAGE_NAME = "XXNBTY VCP Process Error Log"
+    DESCRIPTION = "XXNBTY VCP Process Error Log"
+    LAST_UPDATE_DATE = "2015/03/04"
+  
+    BEGIN STAGE_PROG "10"
+      OWNER = "ORACLE12.1.3"
+      PROGRAM_APPLICATION = "XXNBTY"
+      PROGRAM_NAME = "XXNBTY_VCP_PROCESS_ERROR_LOG"
+      CRITICAL = "Y"
+      NUMBER_OF_COPIES = "0"
+      SAVE_OUTPUT_FLAG = "Y"
+      LAST_UPDATE_DATE = "2015/03/04"
+    
+      BEGIN PROG_ARGS "XXNBTY" "$SRS$.XXNBTY_VCP_PROCESS_ERROR_LOG"
+ "ATTRIBUTE1"
+        OWNER = "RANDYL.PULMA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "Y"
+        UPDATE_FLAG = "Y"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "ALL_VCP_RICEFW"
+        LAST_UPDATE_DATE = "2015/02/24"
+      END PROG_ARGS
+      
+    END STAGE_PROG
+    
+  END STAGE
+  
+  BEGIN STAGE "STAGE 35"
+    OWNER = "ORACLE12.1.3"
+    CRITICAL = "N"
+    OUTCOME = "C"
+    ALLOW_CONSTRAINTS_FLAG = "N"
+    DISPLAY_SEQUENCE = "36"
+    FUNCTION_APPLICATION = "FND"
+    FUNCTION = "FNDRSSTE"
+    SUCCESS_LINK = "Stage 32"
+    WARNING_LINK = "Stage 32"
+    USER_STAGE_NAME = "XXNBTY Item Description Update"
+    DESCRIPTION = "XXNBTY Item Description Update"
+    LAST_UPDATE_DATE = "2015/03/04"
+  
+    BEGIN STAGE_PROG "10"
+      OWNER = "ORACLE12.1.3"
+      PROGRAM_APPLICATION = "XXNBTY"
+      PROGRAM_NAME = "XXNBTY_MSC_ITEM_DESCRIPTION"
+      CRITICAL = "Y"
+      NUMBER_OF_COPIES = "0"
+      SAVE_OUTPUT_FLAG = "Y"
+      LAST_UPDATE_DATE = "2015/03/04"
+    
+      BEGIN PROG_ARGS "XXNBTY" "$SRS$.XXNBTY_MSC_ITEM_DESCRIPTION" "ATTRIBUTE1"
+        OWNER = "RANDYL.PULMA"
+        DISPLAY_FLAG = "Y"
+        INSERT_FLAG = "Y"
+        UPDATE_FLAG = "Y"
+        DEFAULT_TYPE = "C"
+        DEFAULT_VALUE = "No"
+        LAST_UPDATE_DATE = "2015/02/24"
+      END PROG_ARGS
+      
+    END STAGE_PROG
+    
+  END STAGE
+  
+  BEGIN STAGE "Stage15"
+    OWNER = "ORACLE12.1.3"
+    CRITICAL = "N"
+    OUTCOME = "C"
+    ALLOW_CONSTRAINTS_FLAG = "N"
+    DISPLAY_SEQUENCE = "15"
+    FUNCTION_APPLICATION = "FND"
+    FUNCTION = "FNDRSSTE"
+    SUCCESS_LINK = "Stage20"
+    WARNING_LINK = "Stage20"
+    USER_STAGE_NAME = "XXNBTY Item Cost Merge Files"
+    DESCRIPTION = "XXNBTY Item Cost Merge Files"
+    LAST_UPDATE_DATE = "2015/03/04"
+  
+    BEGIN STAGE_PROG "10"
+      OWNER = "ORACLE12.1.3"
+      PROGRAM_APPLICATION = "XXNBTY"
+      PROGRAM_NAME = "XXNBTY_MSC_ITEM_COST_MERGE"
+      CRITICAL = "Y"
+      NUMBER_OF_COPIES = "0"
+      SAVE_OUTPUT_FLAG = "Y"
+      LAST_UPDATE_DATE = "2015/03/04"
+    
+    END STAGE_PROG
+    
+  END STAGE
+  
+  BEGIN STAGE "Stage25"
+    OWNER = "ORACLE12.1.3"
+    CRITICAL = "N"
+    OUTCOME = "C"
+    ALLOW_CONSTRAINTS_FLAG = "N"
+    DISPLAY_SEQUENCE = "25"
+    FUNCTION_APPLICATION = "FND"
+    FUNCTION = "FNDRSSTE"
+    SUCCESS_LINK = "Stage35"
+    WARNING_LINK = "Stage35"
+    USER_STAGE_NAME = "XXNBTY Item Cost Load Files"
+    DESCRIPTION = "XXNBTY Item Cost Load Files"
+    LAST_UPDATE_DATE = "2015/03/04"
+  
+    BEGIN STAGE_PROG "10"
+      OWNER = "ORACLE12.1.3"
+      PROGRAM_APPLICATION = "XXNBTY"
+      PROGRAM_NAME = "XXNBTY_MSC_ITEM_COST_LOAD"
+      CRITICAL = "Y"
+      NUMBER_OF_COPIES = "0"
+      SAVE_OUTPUT_FLAG = "Y"
+      LAST_UPDATE_DATE = "2015/03/04"
+    
+    END STAGE_PROG
+    
+  END STAGE
+  
+END REQ_SET
+

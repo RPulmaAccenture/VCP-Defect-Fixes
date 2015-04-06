@@ -54,3 +54,147 @@ Move the LDT files to /u01/oracle/apps/apps_st/appl/xxnbty/12.0.0/admin/import a
 --Upload Command
 
 FNDLOAD apps/PASSWORD 0 Y UPLOAD $FND_TOP/patch/115/import/afcpprog.lct XXNBTY_EXT03_CP.ldt CUSTOM_MODE=FORCE
+
+
+5. Command to deploy REP01
+
+5.1 Command to Upload sql files.
+
+--FOR TABLE xxnbty_pegging_temp_tbl
+Move the xxnbty_pegging_temp_tbl.sql to /u01/oracle/apps/apps_st/appl/xxnbty/12.0.0/admin/sql and execute the command.
+NOTE: You may use apps user and apps password. 
+
+sqlplus -s USERNAME/PASSWORD
+
+@/u01/oracle/apps/apps_st/appl/xxnbty/12.0.0/admin/sql/xxnbty_pegging_temp_tbl.sql
+
+--FOR TABLE xxnbty_catalog_staging_tbl
+Move the xxnbty_catalog_staging_tbl.sql to /u01/oracle/apps/apps_st/appl/xxnbty/12.0.0/admin/sql and execute the command.
+NOTE: You may use apps user and apps password. 
+
+sqlplus -s USERNAME/PASSWORD
+
+@/u01/oracle/apps/apps_st/appl/xxnbty/12.0.0/admin/sql/xxnbty_catalog_staging_tbl.sql
+
+
+
+5.2 Command to Upload indexes.
+
+Move the xxnbty_catalog_staging_tbl_u1.sql to /u01/oracle/apps/apps_st/appl/xxnbty/12.0.0/admin/sql and execute the command.
+NOTE: You may use apps user and apps password. 
+
+sqlplus -s USERNAME/PASSWORD
+
+@/u01/oracle/apps/apps_st/appl/xxnbty/12.0.0/admin/sql/xxnbty_catalog_staging_tbl_u1.sql
+
+
+5.3 Command to Upload packages
+
+--FOR PACKAGE SPECS
+Move the XXNBTY_MSC_REP01_MULTI_PEGG_PKG.pks to /u01/oracle/apps/apps_st/appl/xxnbty/12.0.0/admin/sql and execute the command.
+NOTE: You may use apps user and apps password. 
+
+sqlplus -s USERNAME/PASSWORD
+
+@/u01/oracle/apps/apps_st/appl/xxnbty/12.0.0/admin/sql/XXNBTY_MSC_REP01_MULTI_PEGG_PKG.pks
+For "Enter value for display:" input "& Display"
+
+Example:
+	Enter value for display: & Display
+
+
+--FOR PACKAGE BODY
+Move the XXNBTY_MSC_REP01_MULTI_PEGG_PKG.pkb to /u01/oracle/apps/apps_st/appl/xxnbty/12.0.0/admin/sql and execute the command.
+NOTE: You may use apps user and apps password. 
+
+sqlplus -s USERNAME/PASSWORD
+
+@/u01/oracle/apps/apps_st/appl/xxnbty/12.0.0/admin/sql/XXNBTY_MSC_REP01_MULTI_PEGG_PKG.pkb
+
+
+5.4 Command to Upload FND FILES
+NOTE: Please make sure to update the password. thanks!
+
+Move the LDT files to /u01/oracle/apps/apps_st/appl/xxnbty/12.0.0/admin/import and execute the command.
+
+--Upload Command
+--Concurrent Programs
+Move the LDT files to /u01/oracle/apps/apps_st/appl/xxnbty/12.0.0/admin/import and execute the command.
+
+FNDLOAD apps/PASSWORD 0 Y UPLOAD $FND_TOP/patch/115/import/afcpprog.lct XXNBTY_REP01_CP_a.ldt CUSTOM_MODE=FORCE
+FNDLOAD apps/PASSWORD 0 Y UPLOAD $FND_TOP/patch/115/import/afcpprog.lct XXNBTY_REP01_CP_b.ldt CUSTOM_MODE=FORCE
+FNDLOAD apps/PASSWORD 0 Y UPLOAD $FND_TOP/patch/115/import/afcpprog.lct XXNBTY_REP01_CP_c.ldt CUSTOM_MODE=FORCE
+
+--Value Sets
+Move the LDT files to /u01/oracle/apps/apps_st/appl/xxnbty/12.0.0/admin/import and execute the command.
+
+FNDLOAD apps/PASSWORD 0 Y UPLOAD $FND_TOP/patch/115/import/afffload.lct XXNBTY_REP01_VS_a.ldt CUSTOM_MODE=FORCE
+FNDLOAD apps/PASSWORD 0 Y UPLOAD $FND_TOP/patch/115/import/afffload.lct XXNBTY_REP01_VS_b.ldt CUSTOM_MODE=FORCE
+FNDLOAD apps/PASSWORD 0 Y UPLOAD $FND_TOP/patch/115/import/afffload.lct XXNBTY_REP01_VS_c.ldt CUSTOM_MODE=FORCE
+FNDLOAD apps/PASSWORD 0 Y UPLOAD $FND_TOP/patch/115/import/afffload.lct XXNBTY_REP01_VS_d.ldt CUSTOM_MODE=FORCE
+FNDLOAD apps/PASSWORD 0 Y UPLOAD $FND_TOP/patch/115/import/afffload.lct XXNBTY_REP01_VS_e.ldt CUSTOM_MODE=FORCE
+FNDLOAD apps/PASSWORD 0 Y UPLOAD $FND_TOP/patch/115/import/afffload.lct XXNBTY_REP01_VS_f.ldt CUSTOM_MODE=FORCE
+
+--Request Sets
+Move the LDT files to /u01/oracle/apps/apps_st/appl/xxnbty/12.0.0/admin/import and execute the command.
+
+FNDLOAD apps/PASSWORD 0 Y UPLOAD $FND_TOP/patch/115/import/afcprset.lct XXNBTY_DAILY_PLANNING_REQUEST_RS.ldt CUSTOM_MODE=FORCE
+FNDLOAD apps/PASSWORD 0 Y UPLOAD $FND_TOP/patch/115/import/afcprset.lct XXNBTY_Planning_MPS_MRP_RS.ldt CUSTOM_MODE=FORCE
+
+--Request Set links
+Move the LDT files to /u01/oracle/apps/apps_st/appl/xxnbty/12.0.0/admin/import and execute the command.
+
+FNDLOAD apps/PASSWORD 0 Y UPLOAD $FND_TOP/patch/115/import/afcprset.lct XXNBTY_DAILY_PLANNING_REQUEST_RL.ldt CUSTOM_MODE=FORCE
+FNDLOAD apps/PASSWORD 0 Y UPLOAD $FND_TOP/patch/115/import/afcprset.lct XXNBTY_Planning_MPS_MRP_RL.ldt CUSTOM_MODE=FORCE
+
+--Request Group
+Move the LDT files to /u01/oracle/apps/apps_st/appl/xxnbty/12.0.0/admin/import and execute the command.
+
+FNDLOAD apps/PASSWORD 0 Y UPLOAD $FND_TOP/patch/115/import/afcpreqg.lct XXNBTY_REP01_RG_a.ldt CUSTOM_MODE=FORCE
+FNDLOAD apps/PASSWORD 0 Y UPLOAD $FND_TOP/patch/115/import/afcpreqg.lct XXNBTY_REP01_RG_b.ldt CUSTOM_MODE=FORCE
+FNDLOAD apps/PASSWORD 0 Y UPLOAD $FND_TOP/patch/115/import/afcpreqg.lct XXNBTY_DAILY_PLANNING_REQUEST_RG.ldt CUSTOM_MODE=FORCE
+FNDLOAD apps/PASSWORD 0 Y UPLOAD $FND_TOP/patch/115/import/afcpreqg.lct XXNBTY_Planning_MPS_MRP_RG.ldt CUSTOM_MODE=FORCE
+
+--Data Definition
+Move the LDT files to /u01/oracle/apps/apps_st/appl/xxnbty/12.0.0/admin/import and execute the command.
+
+FNDLOAD apps/PASSWORD 0 Y UPLOAD $XDO_TOP/patch/115/import/xdotmpl.lct XXNBTY_REP01_DD.ldt CUSTOM_MODE=FORCE
+
+--XML Upload Command
+Move the LDT files to /u01/oracle/apps/apps_st/appl/xxnbty/12.0.0/java and execute the command.
+
+java oracle.apps.xdo.oa.util.XDOLoader UPLOAD -DB_USERNAME <username of the DB> -DB_PASSWORD <PASSWORD of the DB> -JDBC_CONNECTION '(DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=<HOST name of the DB>)(PORT=<Port number of the DB>))(CONNECT_DATA=(SERVICE_NAME=<Service Name of the DB>)))' -LOB_TYPE DATA_TEMPLATE -LOB_CODE XXNBTY_MSC_GEN_PEG_REPORT -XDO_FILE_TYPE XML -FILE_NAME /u01/oracle/apps/apps_st/appl/xxnbty/12.0.0/java/DATA_TEMPLATE_XXNBTY_XXNBTY_MSC_GEN_PEG_REPORT.xml -APPS_SHORT_NAME XXNBTY -NLS_LANG en -TERRITORY US -LOG_FILE /u01/oracle/apps/apps_st/appl/xxnbty/12.0.0/java/DATA_TEMPLATE_XXNBTY_MSC_GEN_PEG_REPORT_XML.log	
+
+--XLS Upload Command
+Move the LDT files to /u01/oracle/apps/apps_st/appl/xxnbty/12.0.0/java and execute the command.
+
+java oracle.apps.xdo.oa.util.XDOLoader UPLOAD -DB_USERNAME <username of the DB> -DB_PASSWORD <PASSWORD of the DB> -JDBC_CONNECTION '(DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=<HOST name of the DB>)(PORT=<Port number of the DB>))(CONNECT_DATA=(SERVICE_NAME=<Service Name of the DB>)))' -LOB_TYPE TEMPLATE -APPS_SHORT_NAME XXNBTY -LOB_CODE XXNBTY_MSC_GEN_PEG_REPORT -LANGUAGE en -TERRITORY US -XDO_FILE_TYPE XLS -CUSTOM_MODE FORCE -FILE_NAME /u01/oracle/apps/apps_st/appl/xxnbty/12.0.0/java/TEMPLATE_SOURCE_XXNBTY_MLTLVL_PGGNG_RPRT.xls
+
+
+6. Upload the Look up. 
+
+Move the LDT files to /u01/oracle/apps/apps_st/appl/xxnbty/12.0.0/admin/import and execute the command.
+
+FNDLOAD apps/PASSWORD 0 Y UPLOAD $FND_TOP/patch/115/import/aflvmlu.lct XXNBTY_VCP_SEND_EMAIL_LT.ldt CUSTOM_MODE=FORCE
+
+
+7. Upload the Package body of EXT05- Safety stocks
+
+
+
+
+Move the XXNBTY_MSC_EXT05_SAFETY_STK_PKG.pkb to /u01/oracle/apps/apps_st/appl/xxnbty/12.0.0/admin/sql and execute the command.
+NOTE: You may use apps user and apps password. 
+
+sqlplus -s USERNAME/PASSWORD
+
+@/u01/oracle/apps/apps_st/appl/xxnbty/12.0.0/admin/sql/XXNBTY_MSC_EXT05_SAFETY_STK_PKG.pkb
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- $Header: DATA_TEMPLATE_XXNBTY_MLTLVL_PGGNG_RPRT.xml 115.3 2015/04/06 07:42:39 xdouser noship $ -->
+<!-- dbdrv: none -->
+
+<dataTemplate name="XXNBTY_MLTLVL_PGGNG_RPRT" version="1.0">
+<!--  
+ *  File           : XXNBTY_MLTLVL_PGGNG_RPRT.xml
+ *  Author         : Albert John Flores, Accenture
+ *  Date           Author                    Description
+ *  _________________________________________________________
+ *  2015-FEB-27    Albert John Flores		 Initial Creation
+ *  2015-MAR-05	   Albert John Flores		 Added Parameter for request id identifier
+ -->
+ <properties>
+  <property name="xml_tag_case" value="upper" />
+ </properties>
+ <parameters>
+  <parameter name="P_REQUEST_ID" dataType="number"/>
+  <parameter name="P_PLAN_NAME" dataType="varchar2"/>
+  <parameter name="P_ORG_CODE" dataType="varchar2"/>
+  <parameter name="P_CATALOG_GROUP" dataType="varchar2"/>
+  <parameter name="P_PLANNER_CODE" dataType="varchar2"/>
+  <parameter name="P_PURCHASED_FLAG" dataType="varchar2"/>
+  <parameter name="P_ITEM_NAME" dataType="varchar2"/>
+  <parameter name="P_MAIN_FROM_DATE" dataType="date"/>
+  <parameter name="P_MAIN_TO_DATE" dataType="date"/>
+ </parameters>
+ <dataQuery>
+  <sqlStatement name="Q_PEGGING_REPORT">
+   <![CDATA[  SELECT item_rm item_rm
+   					,item_desc_rm item_desc_rm
+   					,org_code_rm org_code_rm
+   					,org_desc_rm org_desc_rm
+   					,excess_qty_rm excess_qty_rm
+   					,order_type_rm order_type_rm
+   					,TO_CHAR(due_date_rm, 'DD-MON-YYYY') due_date_rm
+   					,lot_number_rm lot_number_rm
+   					,TO_CHAR(psd_expiry_date_rm, 'DD-MON-YYYY') psd_expiry_date_rm
+   					,order_number_rm order_number_rm
+   					,source_org_rm source_org_rm
+   					,order_qty_rm order_qty_rm
+   					,pegging_order_no_rm pegging_order_no_rm
+   					,item_bl item_bl
+   					,item_desc_bl item_desc_bl
+   					,org_code_bl org_code_bl
+   					,org_desc_bl org_desc_bl
+   					,excess_qty_bl excess_qty_bl
+   					,order_type_bl order_type_bl
+   					,TO_CHAR(due_date_bl, 'DD-MON-YYYY') due_date_bl
+   					,lot_number_bl lot_number_bl
+   					,TO_CHAR(psd_expiry_date_bl, 'DD-MON-YYYY') psd_expiry_date_bl
+   					,order_number_bl order_number_bl
+   					,source_org_bl source_org_bl
+   					,order_qty_bl order_qty_bl
+   					,pegging_order_no_bl pegging_order_no_bl
+   					,item_bc item_bc
+   					,item_desc_bc item_desc_bc
+   					,org_code_bc org_code_bc
+   					,org_desc_bc org_desc_bc
+   					,excess_qty_bc excess_qty_bc
+   					,order_type_bc order_type_bc
+   					,TO_CHAR(due_date_bc, 'DD-MON-YYYY') due_date_bc
+   					,lot_number_bc lot_number_bc
+   					,TO_CHAR(psd_expiry_date_bc, 'DD-MON_YYYY') psd_expiry_date_bc
+   					,order_number_bc order_number_bc
+   					,source_org_bc source_org_bc
+   					,order_qty_bc order_qty_bc
+   					,pegging_order_no_bc pegging_order_no_bc
+   					,item_fg item_fg
+   					,item_desc_fg item_desc_fg
+   					,org_code_fg org_code_fg
+   					,org_desc_fg org_desc_fg
+   					,excess_qty_fg excess_qty_fg
+   					,order_type_fg order_type_fg
+   					,TO_CHAR(due_date_fg, 'DD-MON-YYYY') due_date_fg
+   					,lot_number_fg lot_number_fg
+   					,TO_CHAR(psd_expiry_date_fg, 'DD-MON-YYYY') psd_expiry_date_fg
+   					,order_number_fg order_number_fg
+   					,source_org_fg source_org_fg
+   					,order_qty_fg order_qty_fg
+   					,pegging_order_no_fg pegging_order_no_fg
+   					,item_dd item_dd
+   					,item_desc_dd item_desc_dd
+   					,org_code_dd org_code_dd
+   					,org_desc_dd org_desc_dd
+   					,excess_qty_dd excess_qty_dd
+   					,order_type_dd order_type_dd
+   					,TO_CHAR(due_date_dd,'DD-MON-YYYY') due_date_dd
+   					,lot_number_dd lot_number_dd
+   					,TO_CHAR(psd_expiry_date_dd, 'DD-MON-YYYY') psd_expiry_date_dd
+   					,order_number_dd order_number_dd
+   					,source_org_dd source_org_dd
+   					,order_qty_dd order_qty_dd
+   					,pegging_order_no_dd pegging_order_no_dd
+   				from xxnbty.xxnbty_pegging_temp_tbl
+				where request_id = :P_REQUEST_ID
+				
+   ]]>
+  </sqlStatement>
+  <sqlStatement name="Q_PARAM">
+   <![CDATA[
+            SELECT   :P_PLAN_NAME p_plan_name
+					,:P_ORG_CODE p_org_code
+					,DECODE(:P_CATALOG_GROUP, NULL, NULL, :P_CATALOG_GROUP ) p_catalog_group
+					,DECODE(:P_PLANNER_CODE, NULL, NULL, :P_PLANNER_CODE) p_planner_code
+					,DECODE(:P_PURCHASED_FLAG, NULL, NULL, :P_PURCHASED_FLAG) p_purchased_flag
+					,DECODE(:P_ITEM_NAME, NULL, NULL, :P_ITEM_NAME) p_item_name
+					,DECODE(:P_MAIN_FROM_DATE, NULL, NULL, TO_CHAR(:P_MAIN_FROM_DATE , 'DD-MON-YYYY')) p_from_date
+					,DECODE(:P_MAIN_TO_DATE, NULL, NULL, TO_CHAR(:P_MAIN_TO_DATE, 'DD-MON-YYYY')) p_to_date
+			FROM dual		
+   ]]>
+  </sqlStatement>  
+ </dataQuery>
+ <dataStructure>
+  <group name="G_PEGGING_REPORT" dataType="varchar2" source="Q_PEGGING_REPORT">
+	   <element name="ITEM_G_RM" dataType="varchar2" value="ITEM_RM" />
+	   <element name="ITEM_DESC_G_RM" dataType="varchar2" value="ITEM_DESC_RM" />
+	   <element name="ORG_CODE_G_RM" dataType="varchar2" value="ORG_CODE_RM" />
+	   <element name="ORG_DESC_G_RM" dataType="varchar2" value="ORG_DESC_RM" />
+	   <element name="EXCESS_QTY_G_RM" dataType="number" value="EXCESS_QTY_RM" />
+	   <element name="ORDER_TYPE_G_RM" dataType="varchar2" value="ORDER_TYPE_RM" />
+	   <element name="DUE_DATE_G_RM" dataType="date" value="DUE_DATE_RM" />
+	   <element name="LOT_NUMBER_G_RM" dataType="varchar2" value="LOT_NUMBER_RM" />
+	   <element name="PSD_EXPIRY_DATE_G_RM" dataType="date" value="PSD_EXPIRY_DATE_RM" />
+	   <element name="ORDER_NUMBER_G_RM" dataType="varchar2" value="ORDER_NUMBER_RM" />
+	   <element name="SOURCE_ORG_G_RM" dataType="varchar2" value="SOURCE_ORG_RM" />
+	   <element name="ORDER_QTY_G_RM" dataType="number" value="ORDER_QTY_RM" />
+	   <element name="PEGGING_ORDER_NO_G_RM" dataType="date" value="PEGGING_ORDER_NO_RM" />
+	   <element name="ITEM_G_BL" dataType="varchar2" value="ITEM_BL" />
+	   <element name="ITEM_DESC_G_BL" dataType="varchar2" value="ITEM_DESC_BL" />
+	   <element name="ORG_CODE_G_BL" dataType="varchar2" value="ORG_CODE_BL" />
+	   <element name="ORG_DESC_G_BL" dataType="varchar2" value="ORG_DESC_BL" />
+	   <element name="EXCESS_QTY_G_BL" dataType="number" value="EXCESS_QTY_BL" />
+	   <element name="ORDER_TYPE_G_BL" dataType="varchar2" value="ORDER_TYPE_BL" />
+	   <element name="DUE_DATE_G_BL" dataType="date" value="DUE_DATE_BL" />
+	   <element name="LOT_NUMBER_G_BL" dataType="varchar2" value="LOT_NUMBER_BL" />
+	   <element name="PSD_EXPIRY_DATE_G_BL" dataType="date" value="PSD_EXPIRY_DATE_BL" />
+	   <element name="ORDER_NUMBER_G_BL" dataType="varchar2" value="ORDER_NUMBER_BL" />
+	   <element name="SOURCE_ORG_G_BL" dataType="varchar2" value="SOURCE_ORG_BL" />
+	   <element name="ORDER_QTY_G_BL" dataType="number" value="ORDER_QTY_BL" />
+	   <element name="PEGGING_ORDER_NO_G_BL" dataType="date" value="PEGGING_ORDER_NO_BL" />
+	   <element name="ITEM_G_BC" dataType="varchar2" value="ITEM_BC" />
+	   <element name="ITEM_DESC_G_BC" dataType="varchar2" value="ITEM_DESC_BC" />
+	   <element name="ORG_CODE_G_BC" dataType="varchar2" value="ORG_CODE_BC" />
+	   <element name="ORG_DESC_G_BC" dataType="varchar2" value="ORG_DESC_BC" />
+	   <element name="EXCESS_QTY_G_BC" dataType="number" value="EXCESS_QTY_BC" />
+	   <element name="ORDER_TYPE_G_BC" dataType="varchar2" value="ORDER_TYPE_BC" />
+	   <element name="DUE_DATE_G_BC" dataType="date" value="DUE_DATE_BC" />
+	   <element name="LOT_NUMBER_G_BC" dataType="varchar2" value="LOT_NUMBER_BC" />
+	   <element name="PSD_EXPIRY_DATE_G_BC" dataType="date" value="PSD_EXPIRY_DATE_BC" />
+	   <element name="ORDER_NUMBER_G_BC" dataType="varchar2" value="ORDER_NUMBER_BC" />
+	   <element name="SOURCE_ORG_G_BC" dataType="varchar2" value="SOURCE_ORG_BC" />
+	   <element name="ORDER_QTY_G_BC" dataType="number" value="ORDER_QTY_BC" />
+	   <element name="PEGGING_ORDER_NO_G_BC" dataType="date" value="PEGGING_ORDER_NO_BC" />
+	   <element name="ITEM_G_FG" dataType="varchar2" value="ITEM_FG" />
+	   <element name="ITEM_DESC_G_FG" dataType="varchar2" value="ITEM_DESC_FG" />
+	   <element name="ORG_CODE_G_FG" dataType="varchar2" value="ORG_CODE_FG" />
+	   <element name="ORG_DESC_G_FG" dataType="varchar2" value="ORG_DESC_FG" />
+	   <element name="EXCESS_QTY_G_FG" dataType="number" value="EXCESS_QTY_FG" />
+	   <element name="ORDER_TYPE_G_FG" dataType="varchar2" value="ORDER_TYPE_FG" />
+	   <element name="DUE_DATE_G_FG" dataType="date" value="DUE_DATE_FG" />
+	   <element name="LOT_NUMBER_G_FG" dataType="varchar2" value="LOT_NUMBER_FG" />
+	   <element name="PSD_EXPIRY_DATE_G_FG" dataType="date" value="PSD_EXPIRY_DATE_FG" />
+	   <element name="ORDER_NUMBER_G_FG" dataType="varchar2" value="ORDER_NUMBER_FG" />
+	   <element name="SOURCE_ORG_G_FG" dataType="varchar2" value="SOURCE_ORG_FG" />
+	   <element name="ORDER_QTY_G_FG" dataType="number" value="ORDER_QTY_FG" />
+	   <element name="PEGGING_ORDER_NO_G_FG" dataType="date" value="PEGGING_ORDER_NO_FG" />
+	   <element name="ITEM_G_DD" dataType="varchar2" value="ITEM_DD" />
+	   <element name="ITEM_DESC_G_DD" dataType="varchar2" value="ITEM_DESC_DD" />
+	   <element name="ORG_CODE_G_DD" dataType="varchar2" value="ORG_CODE_DD" />
+	   <element name="ORG_DESC_G_DD" dataType="varchar2" value="ORG_DESC_DD" />
+	   <element name="EXCESS_QTY_G_DD" dataType="number" value="EXCESS_QTY_DD" />
+	   <element name="ORDER_TYPE_G_DD" dataType="varchar2" value="ORDER_TYPE_DD" />
+	   <element name="DUE_DATE_G_DD" dataType="date" value="DUE_DATE_DD" />
+	   <element name="LOT_NUMBER_G_DD" dataType="varchar2" value="LOT_NUMBER_DD" />
+	   <element name="PSD_EXPIRY_DATE_G_DD" dataType="date" value="PSD_EXPIRY_DATE_DD" />
+	   <element name="ORDER_NUMBER_G_DD" dataType="varchar2" value="ORDER_NUMBER_DD" />
+	   <element name="SOURCE_ORG_G_DD" dataType="varchar2" value="SOURCE_ORG_DD" />
+	   <element name="ORDER_QTY_G_DD" dataType="number" value="ORDER_QTY_DD" />
+	   <element name="PEGGING_ORDER_NO_G_DD" dataType="date" value="PEGGING_ORDER_NO_DD" />
+  </group>
+  <group name="G_PARAM" dataType="varchar2" source="Q_PARAM">
+	   <element name="PLAN_NAME_G" dataType="varchar2" value="P_PLAN_NAME" />
+	   <element name="ORG_CODE_G" dataType="varchar2" value="P_ORG_CODE" />
+	   <element name="CATALOG_GROUP_G" dataType="varchar2" value="P_CATALOG_GROUP" />
+	   <element name="PLANNER_CODE_G" dataType="varchar2" value="P_PLANNER_CODE" />
+	   <element name="PURCHASED_FLAG_G" dataType="varchar2" value="P_PURCHASED_FLAG" />
+	   <element name="ITEM_NAME_G" dataType="varchar2" value="P_ITEM_NAME" />
+	   <element name="FROM_DATE_G" dataType="date" value="P_FROM_DATE" />
+	   <element name="TO_DATE_G" dataType="date" value="P_TO_DATE" />
+  </group>
+ </dataStructure>
+</dataTemplate>
