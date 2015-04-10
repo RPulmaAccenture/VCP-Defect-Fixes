@@ -163,12 +163,12 @@ FNDLOAD apps/PASSWORD 0 Y UPLOAD $XDO_TOP/patch/115/import/xdotmpl.lct XXNBTY_RE
 --XML Upload Command
 Move the LDT files to /u01/oracle/apps/apps_st/appl/xxnbty/12.0.0/java and execute the command.
 
-java oracle.apps.xdo.oa.util.XDOLoader UPLOAD -DB_USERNAME <username of the DB> -DB_PASSWORD <PASSWORD of the DB> -JDBC_CONNECTION '(DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=<HOST name of the DB>)(PORT=<Port number of the DB>))(CONNECT_DATA=(SERVICE_NAME=<Service Name of the DB>)))' -LOB_TYPE DATA_TEMPLATE -LOB_CODE XXNBTY_MSC_GEN_PEG_REPORT -XDO_FILE_TYPE XML -FILE_NAME /u01/oracle/apps/apps_st/appl/xxnbty/12.0.0/java/DATA_TEMPLATE_XXNBTY_XXNBTY_MSC_GEN_PEG_REPORT.xml -APPS_SHORT_NAME XXNBTY -NLS_LANG en -TERRITORY US -LOG_FILE /u01/oracle/apps/apps_st/appl/xxnbty/12.0.0/java/DATA_TEMPLATE_XXNBTY_MSC_GEN_PEG_REPORT_XML.log	
+java oracle.apps.xdo.oa.util.XDOLoader UPLOAD -DB_USERNAME <username of the DB> -DB_PASSWORD <PASSWORD of the DB> -JDBC_CONNECTION '(DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=<HOST name of the DB>)(PORT=<Port number of the DB>))(CONNECT_DATA=(SERVICE_NAME=<Service Name of the DB>)))' -LOB_TYPE DATA_TEMPLATE -LOB_CODE XXNBTY_MSC_GEN_PEG_REPORT -XDO_FILE_TYPE XML -FILE_NAME /u01/oracle/apps/apps_st/appl/xxnbty/12.0.0/java/DATA_TEMPLATE_XXNBTY_XXNBTY_MSC_GEN_PEG_REPORT.xml -APPS_SHORT_NAME XXNBTY -NLS_LANG en -TERRITORY 00 -LOG_FILE /u01/oracle/apps/apps_st/appl/xxnbty/12.0.0/java/DATA_TEMPLATE_XXNBTY_MSC_GEN_PEG_REPORT_XML.log
 
 --XLS Upload Command
 Move the LDT files to /u01/oracle/apps/apps_st/appl/xxnbty/12.0.0/java and execute the command.
 
-java oracle.apps.xdo.oa.util.XDOLoader UPLOAD -DB_USERNAME <username of the DB> -DB_PASSWORD <PASSWORD of the DB> -JDBC_CONNECTION '(DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=<HOST name of the DB>)(PORT=<Port number of the DB>))(CONNECT_DATA=(SERVICE_NAME=<Service Name of the DB>)))' -LOB_TYPE TEMPLATE -APPS_SHORT_NAME XXNBTY -LOB_CODE XXNBTY_MSC_GEN_PEG_REPORT -LANGUAGE en -TERRITORY US -XDO_FILE_TYPE XLS -CUSTOM_MODE FORCE -FILE_NAME /u01/oracle/apps/apps_st/appl/xxnbty/12.0.0/java/TEMPLATE_SOURCE_XXNBTY_MLTLVL_PGGNG_RPRT.xls
+java oracle.apps.xdo.oa.util.XDOLoader UPLOAD -DB_USERNAME <username of the DB> -DB_PASSWORD <PASSWORD of the DB> -JDBC_CONNECTION '(DESCRIPTION=(ADDRESS=(PROTOCOL=tcp)(HOST=<HOST name of the DB>)(PORT=<Port number of the DB>))(CONNECT_DATA=(SERVICE_NAME=<Service Name of the DB>)))' -LOB_TYPE TEMPLATE -APPS_SHORT_NAME XXNBTY -LOB_CODE XXNBTY_MSC_GEN_PEG_REPORT -LANGUAGE en -TERRITORY 00 -XDO_FILE_TYPE XLS -CUSTOM_MODE FORCE -FILE_NAME /u01/oracle/apps/apps_st/appl/xxnbty/12.0.0/java/TEMPLATE_SOURCE_XXNBTY_MLTLVL_PGGNG_RPRT.xls
 
 
 6. Upload the Look up. 
